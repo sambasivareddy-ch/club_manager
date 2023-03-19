@@ -1,0 +1,110 @@
+.club-header {
+    width: 100%;
+    background-color: #fafafa;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+    height: 50vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.club-title {
+    font-size: 3em;
+    color: blueviolet;
+}
+
+.manager-tools {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.manager-tool__btn {
+    outline: none;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: transparent;
+    border: solid 1px #000;
+    cursor: pointer;
+}
+
+.manager-tool__btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.club-about {
+    width: 80%;
+    margin: 40px auto;
+}
+
+.club-about .about {
+    font-size: 16px;
+    line-height: 28px;
+    margin: 10px 0;
+}
+
+.club-member__wrapper, .club-event_card__wrapper {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.club-event_card__wrapper img {
+    width: 100%;
+}
+
+.event-info {
+    margin: 10px auto;
+}
+
+.event-title {
+    color: blueviolet;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.about-event {
+    line-height: 28px;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.more-about_event__btn {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    border: none;
+    outline: none;
+    color: #ffff;
+    border-radius: 10px;
+    border: solid 1px #000;
+    cursor: pointer;
+}
+
+.more-about_event__btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.member-name {
+    color: blueviolet;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px) {
+    .club-about {
+        width: 95%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+    .club-about {
+        width: 90%;
+    }
+}
