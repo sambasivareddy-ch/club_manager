@@ -1,0 +1,49 @@
+.home-wrapper {
+    width: 100%;
+}
+
+.events-wrapper, .club-list__wrapper {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.events-wrapper h2, .club-list__wrapper h2 {
+    font-weight: 400;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* font-size: 16px; */
+}
+
+.club-list__wrapper h2 {
+    justify-content: center;
+}
+
+.club-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+}
+
+
+.events {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+@media screen and (max-width: 600px) {
+    .events, .club-list {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+    .club-list{
+        grid-template-columns: auto auto;
+    }
+}

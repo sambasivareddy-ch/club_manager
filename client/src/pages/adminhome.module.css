@@ -1,0 +1,40 @@
+.admin-page__Wrapper {
+    height: calc(100vh - 90px);
+}
+
+.admin-page {
+    width: 80%;
+    margin: 10px auto;
+}
+
+.admin-operations {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+.clubs-wrapper {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.clubs-wrapper h2 {
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.clubs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .clubs {
+        display: flex;
+        flex-direction: column;
+    }
+}
