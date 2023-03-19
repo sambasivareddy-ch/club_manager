@@ -1,0 +1,51 @@
+.portal-wrapper {
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rgba(255,255,255,0.8);
+    display: grid;
+    place-items: center;
+    color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.portal-form {
+    width: 300px;
+    height: fit-content;
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+    border: solid 1px #000;
+}
+
+.portal__input-field {
+    width: 100%;
+    outline: none;
+    border: solid 1px #000;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.portal-submit__btn {
+    width: 100%;
+    outline: none;
+    border: solid 2px #000;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.portal-submit__btn:hover {
+    background-color: #fff;
+    color: #000;
+}

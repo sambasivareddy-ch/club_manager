@@ -12,8 +12,17 @@ const Button = (props) => {
 
     const iconElement = props.iconType === "edit" ? <EditIcon /> : <AddIcon />;
 
+    const onClickHandler = () => {
+        console.log("hi")
+        props.showPortal();
+    };
+
     return (
-        <button type="button" className={`${styles["btn"]} ${classes}`}>
+        <button
+            type="button"
+            className={`${styles["btn"]} ${classes}`}
+            onClick={onClickHandler}
+        >
             {iconElement} {props.value}
         </button>
     );
