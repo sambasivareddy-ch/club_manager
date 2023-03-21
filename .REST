@@ -1,0 +1,12 @@
+POST http://localhost:5000/admin 
+Content-Type: application/json
+
+{
+    "username": "Admin",
+    "isAdmin": true,
+    "isManager": false,
+    "club": null,
+    "userType": "Admin",
+    "email": "19131a0542@gvpce.ac.in",
+    "password": "sivaChinta@123"
+}

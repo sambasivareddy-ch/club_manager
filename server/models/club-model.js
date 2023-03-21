@@ -6,6 +6,7 @@ const clubSchema = new Schema({
     clubName: string_type,
     hadManager: bool_type,
     noOfMembers: number_type,
+    clubType: string_type,
     members: [user_type],
     aboutClub: string_type,
     lead: user_type,

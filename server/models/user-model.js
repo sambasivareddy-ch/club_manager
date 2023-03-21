@@ -6,7 +6,7 @@ const userSchema = new Schema({
     username: string_type,
     isAdmin: bool_type,
     isManager: bool_type,
-    club: club_type,
+    club: string_type,
     userType: string_type,
     email: string_type,
     password: string_type,

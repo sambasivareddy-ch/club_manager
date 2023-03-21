@@ -1,29 +1,47 @@
-import express from 'express';
-import { config } from 'dotenv';
-import cors from 'cors';
-import adminLoginRoute from "./routes/admin-login.js";
-import managerLoginRoute from "./routes/manager-login.js";
+import express from "express";
+import { config } from "dotenv";
+import cors from "cors";
+import mongoose from "mongoose";
 
-// config .env
+import createAdminRoute from "./routes/create-admin.js";
+import managerLoginRoute from "./routes/manager-login.js";
+import createClubRoute from "./routes/create-club.js";
+import deleteClubRoute from "./routes/delete-club.js";
+import getClubsRoute from "./routes/get-clubs.js";
+import adminLoginRoute from "./routes/login-admin.js";
+import addManagerRoute from "./routes/add-manager.js";
+
 config();
 
-// creating an express application
 const app = express();
+const { connect, connection } = mongoose;
 
-// adding cors to app & support of json
 app.use(cors());
 app.use(express.json());
 
-// home route
-app.get('/', (req, res) => {
-    res.status(200).send('Hello World!!');
-})
+connect(process.env.MONGO_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+connection.once("connected", () => {
+    console.log("DB Connected");
+});
+connection.on("error", () => {
+    console.log("Error Occurred");
+});
 
-app.use('/admin-login', adminLoginRoute);
-app.use('/manager-login', managerLoginRoute);
+app.get("/", (req, res) => {
+    res.status(200).send("Hello World!!");
+});
+app.use("/create-admin", createAdminRoute);
+app.use("/manager-login", managerLoginRoute);
+app.use("/add-manager", addManagerRoute);
+app.use("/create-club", createClubRoute);
+app.use("/delete-club", deleteClubRoute);
+app.use("/get-clubs", getClubsRoute);
+app.use("/admin-login", adminLoginRoute);
 
-// listening at port 5000
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => {
-    console.log(`Listening at Port: ${PORT}`)
-})
+    console.log(`Listening at Port: ${PORT}`);
+});

@@ -14,7 +14,7 @@ const AddClubPortal = (props) => {
                 />
                 <input
                     type="text"
-                    placeholder="Lead Name"
+                    placeholder="Club Type"
                     className={styles["portal__input-field"]}
                 />
                 <input
