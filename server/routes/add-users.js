@@ -7,12 +7,12 @@ router.post("/", async (req, res) => {
     const { username, isAdmin, isManager, club, userType, email, password } =
         req.body;
 
-    const admin = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
-    if (admin) {
+    if (user) {
         res.status(409).json({
             status: 409,
-            message: "Admin Already Exists",
+            message: "User Already Exists",
         });
     } else {
         userModel
@@ -26,10 +26,10 @@ router.post("/", async (req, res) => {
                 password,
             })
             .then((success) => {
-                res.json({ status: 400, message: "Admin Created" });
+                res.json({ status: 400, message: "User Created" });
             })
             .catch((err) => {
-                res.json({ status: 424, message: err });
+                res.json({ status: 424, message: "Creation Failed" });
             });
     }
 });

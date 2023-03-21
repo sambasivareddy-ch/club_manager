@@ -10,6 +10,7 @@ import deleteClubRoute from "./routes/delete-club.js";
 import getClubsRoute from "./routes/get-clubs.js";
 import adminLoginRoute from "./routes/login-admin.js";
 import addManagerRoute from "./routes/add-manager.js";
+import addUserRoute from "./routes/add-users.js";
 
 config();
 
@@ -40,6 +41,7 @@ app.use("/create-club", createClubRoute);
 app.use("/delete-club", deleteClubRoute);
 app.use("/get-clubs", getClubsRoute);
 app.use("/admin-login", adminLoginRoute);
+app.use("/add-user", addUserRoute);
 
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => {

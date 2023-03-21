@@ -6,7 +6,10 @@ const userSchema = new Schema({
     username: string_type,
     isAdmin: bool_type,
     isManager: bool_type,
-    club: string_type,
+    club: {
+        ...string_type,
+        required: false,
+    },
     userType: string_type,
     email: string_type,
     password: string_type,

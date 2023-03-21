@@ -1,4 +1,4 @@
-POST http://localhost:5000/admin 
+POST http://localhost:5000/create-admin
 Content-Type: application/json
 
 {
@@ -9,4 +9,59 @@ Content-Type: application/json
     "userType": "Admin",
     "email": "19131a0542@gvpce.ac.in",
     "password": "sivaChinta@123"
+}
+
+###
+
+GET http://localhost:5000/admin-login
+Content-Type: application/json
+
+{
+    "email": "19131a0542@gvpce.ac.in",
+    "password": "sivaChinta@123"
+}
+
+###
+POST http://localhost:5000/create-club
+Content-Type: application/json 
+
+{
+    "adminId": "6419e65a801f93d18aa5edb2",
+    "clubName": "Rotaract",
+    "noOfMembers": 25,
+    "clubType": "Social"
+}
+
+###
+POST http://localhost:5000/add-manager
+Content-Type: application/json 
+
+{
+    "clubId": "6419f17e2f20ac45cf61b3bd",
+    "managerEmail": "sambasivareddy@gmail.com"
+}
+
+###
+POST http://localhost:5000/add-user
+Content-Type: application/json 
+
+{
+    "username": "siva",
+    "isAdmin": false,
+    "isManager": false,
+    "club": null,
+    "userType": "Member",
+    "email": "sambasivareddy@gmail.com",
+    "password": "sivaChinta@123"
+}
+
+###
+GET http://localhost:5000/get-clubs
+
+###
+DELETE http://localhost:5000/delete-club
+Content-Type: application/json 
+
+{
+    "clubId":"6419f6a83d02a924721e0163"
 }

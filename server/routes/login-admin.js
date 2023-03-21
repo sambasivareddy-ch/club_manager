@@ -16,11 +16,12 @@ router.get("/", async (req, res) => {
                     adminId: user._id,
                     message: "Successfully Loggedin",
                 });
+            } else {
+                res.json({
+                    status: 401,
+                    message: "Invalid Credentials",
+                });
             }
-            res.json({
-                status: 401,
-                message: "Invalid Credentials",
-            });
         })
         .catch((err) => {
             res.json({

@@ -8,7 +8,10 @@ const clubSchema = new Schema({
     noOfMembers: number_type,
     clubType: string_type,
     members: [user_type],
-    aboutClub: string_type,
+    aboutClub: {
+        ...string_type,
+        required: false,
+    },
     lead: user_type,
     clubEvents: [event_type]
 }, {
