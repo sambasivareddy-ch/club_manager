@@ -8,6 +8,7 @@ const eventSchema = new Schema({
     eventDate: date_type,
     club: club_type,
     registerLink: string_type,
+    eventPageLink: string_type,
     poster: buffer_type
 }, {
     collection: "events"
