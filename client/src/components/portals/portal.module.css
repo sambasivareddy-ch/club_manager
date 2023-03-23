@@ -12,7 +12,7 @@
 }
 
 .portal-form {
-    width: 300px;
+    width: 500px;
     height: fit-content;
     padding: 20px;
     background-color: #FFF;
@@ -48,4 +48,10 @@
 .portal-submit__btn:hover {
     background-color: #fff;
     color: #000;
+}
+
+@media screen and (max-width:600px){
+    .portal-form {
+        width: 300px;
+    }
 }
