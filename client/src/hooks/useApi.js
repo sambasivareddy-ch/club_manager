@@ -5,7 +5,7 @@ const useApi = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const getDataFromApi = async (payload) => {
+    const getDataFromApiHandler = async (payload) => {
         const { url } = payload;
         setIsLoading(true);
         try {
@@ -17,7 +17,7 @@ const useApi = () => {
         setIsLoading(false);
     }
 
-    const postDataToApi = async (payload) => {
+    const postDataToApiHandler = async (payload) => {
         const { url, data } = payload;
         setIsLoading(true);
         try {
@@ -35,7 +35,7 @@ const useApi = () => {
         }
     }
 
-    const deleteDataFromApi = async (payload) => {
+    const deleteDataFromApiHandler = async (payload) => {
         const { url, data } = payload;
         setIsLoading(true);
         try {
@@ -57,9 +57,9 @@ const useApi = () => {
         response,
         error,
         isLoading,
-        getDataFromApi,
-        postDataToApi,
-        deleteDataFromApi
+        getDataFromApiHandler,
+        postDataToApiHandler,
+        deleteDataFromApiHandler
     }
 }
 

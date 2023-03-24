@@ -7,6 +7,11 @@
     flex-direction: column;
     gap: 10px;
     box-sizing: border-box;
+    cursor: pointer;
+}
+
+.club-card__wrapper:hover {
+    transform: scale(0.97);
 }
 
 .club-title {

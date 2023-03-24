@@ -35,6 +35,13 @@
     margin: 20px 0;
 }
 
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
 @media screen and (max-width: 600px) {
     .events, .club-list {
         display: flex;

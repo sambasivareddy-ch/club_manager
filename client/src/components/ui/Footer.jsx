@@ -14,11 +14,9 @@ const Footer = () => {
                 <a href="https://www.gvpce.ac.in/">Website: gvpce.ac.in</a>
                 <p>
                     Address:
-                    <pre>
                         Madhurawada,<br/>
                         Visakhapatnam district,<br/>
                         530048
-                    </pre>
                 </p>
             </div>
             <div className={styles["gvpce-map"]}>
@@ -26,9 +24,9 @@ const Footer = () => {
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15193.550087465024!2d83.342295!3d17.8204597!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395bedc7efb603%3A0x87c06caab54e902a!2sGayatri%20Vidya%20Parishad%20College%20of%20Engineering%20(Autonomous)%20(GVP)%20(GVPCE)!5e0!3m2!1sen!2sin!4v1679220564610!5m2!1sen!2sin"
                     width="400"
                     height="300"
-                    allowfullscreen=""
+                    allowFullScreen=""
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    referrerPolicy="no-referrer-when-downgrade"
                     title="Map"
                 ></iframe>
             </div>

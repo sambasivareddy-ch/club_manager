@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ClubHeader from "../components/club/ClubHeader";
 import ClubInfo from "../components/club/ClubInfo";
@@ -8,108 +8,46 @@ import Footer from "../components/ui/Footer";
 
 import styles from "./clubpage.module.css";
 
-const DUMMY_INFO = {
-    aboutClub:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    members: [
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-        {
-            memberName: "Samba Chinta",
-            memberRole: "Lead",
-            memberType: "Student",
-        },
-    ],
-    clubEvents: [
-        {
-            eventTitle: "Hello World!",
-            aboutEvent:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        },
-        {
-            eventTitle: "Hello World!",
-            aboutEvent:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        },
-        {
-            eventTitle: "Hello World!",
-            aboutEvent:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        },
-        {
-            eventTitle: "Hello World!",
-            aboutEvent:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        },
-    ],
-};
-
 const ClubPage = (props) => {
     const [showMoreMembers, setShowMoreMembers] = useState(false);
     const [showMoreEvents, setShowMoreEvents] = useState(false);
+    const [managerInfo, setManagerInfo] = useState({});
+
+    useEffect(() => {
+        const is_key_exists = localStorage.getItem('is_manager');
+        const get_club_name = localStorage.getItem('club_name')
+        const obj = {is_key_exists, get_club_name}
+        if (is_key_exists && get_club_name) {
+            setManagerInfo(obj);
+        }
+    }, [])
 
     return (
         <div className={styles["club-page__wrapper"]}>
-            <ClubHeader clubName="IEEE Student Branch" />
-            <ClubInfo aboutClub={DUMMY_INFO.aboutClub} />
+            <ClubHeader clubName={props.club.clubName} managerInfo = {managerInfo} club_id = {props.club._id}/>
+            <ClubInfo aboutClub={props.club.aboutClub} />
             <div className={styles["club-members__wrapper"]}>
                 <h2>Club Members</h2>
                 <div className={styles["club-member__main"]}>
                     {!showMoreMembers &&
-                        DUMMY_INFO.members.slice(0, 6).map((member) => {
+                        props.club.members.slice(0, 6).map((member) => {
                             return (
                                 <ClubMember
                                     memberName={member.memberName}
                                     memberRole={member.memberRole}
                                     memberType={member.memberType}
+                                    key={Math.random()}
                                 />
                             );
                         })}
                     {showMoreMembers &&
-                        DUMMY_INFO.members.map((member) => {
+                        props.club.members.map((member) => {
                             return (
                                 <ClubMember
                                     memberName={member.memberName}
                                     memberRole={member.memberRole}
                                     memberType={member.memberType}
+                                    key={Math.random()}
                                 />
                             );
                         })}
@@ -127,7 +65,7 @@ const ClubPage = (props) => {
                 <h2>Recent Events</h2>
                 <div className={styles["club-events__main"]}>
                     {!showMoreEvents &&
-                        DUMMY_INFO.clubEvents.slice(0, 3).map((events) => {
+                        props.club.clubEvents.slice(0, 3).map((events) => {
                             return (
                                 <ClubEventCard
                                     eventTitle={events.eventTitle}
@@ -137,7 +75,7 @@ const ClubPage = (props) => {
                             );
                         })}
                     {showMoreEvents &&
-                        DUMMY_INFO.clubEvents.map((events) => {
+                        props.club.clubEvents.map((events) => {
                             return (
                                 <ClubEventCard
                                     eventTitle={events.eventTitle}
