@@ -1,17 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./portal.module.css";
-
-const DUMMY_ClUBS = ['IEEE', 'Rotaract Club', 'NSS Club', 'AI Club'];
+import useApi from "../../hooks/useApi";
 
 const DeleteClubPortal = (props) => {
+    const { deleteDataFromApiHandler } = useApi();
+    const clubs_info = [];
+    const [selectedClubID, setSelectedClubID] = useState();
+
+    props.clubs.map((club) =>
+        clubs_info.push({ id: club._id, clubName: club.clubName })
+    );
+
+    const formSubmitHandler = async (e) => {
+        e.preventDefault();
+        if (selectedClubID) {
+            await deleteDataFromApiHandler({
+                url: "http://localhost:5000/delete-club",
+                data: {
+                    clubId: selectedClubID,
+                },
+            })
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+        }
+        props.closePortalHandler();
+    };
+
     return (
         <div className={styles["portal-wrapper"]}>
-            <form className={styles["portal-form"]}>
+            <form
+                className={styles["portal-form"]}
+                onSubmit={formSubmitHandler}
+            >
                 <h3>Delete Club</h3>
-                <select>
-                    {DUMMY_ClUBS.map(club => {
-                        return <option key={Math.random()}>{ club }</option>
+                <select
+                    onChange={(e) => {
+                        setSelectedClubID(e.target.value);
+                    }}
+                >
+                    <option value="" selected={true} hidden>
+                        Select CLub
+                    </option>
+                    {clubs_info.map((club) => {
+                        return (
+                            <option key={Math.random()} value={club.id}>
+                                {club.clubName}
+                            </option>
+                        );
                     })}
                 </select>
                 <input

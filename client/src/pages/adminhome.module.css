@@ -32,6 +32,22 @@
     gap: 20px;
 }
 
+.logout-btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 0 5px;
+    background: none;
+    border-bottom: dashed 1px blueviolet;
+    color: blueviolet;
+}
+
+.logout-btn:hover {
+    color: black;
+    border-color: black;
+}
+
 @media screen and (max-width: 600px) {
     .clubs {
         display: flex;

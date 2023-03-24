@@ -1,37 +1,42 @@
 import {useState} from 'react';
 
 const useApi = () => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const getDataFromApiHandler = async (payload) => {
         const { url } = payload;
+        console.log(payload)
         setIsLoading(true);
         try {
             const responseData = await fetch(url);
-            setResponse(responseData.json());
+            setIsLoading(false);
+            return responseData.json();
         } catch (err) {
-            setError(err);
+            setIsLoading(false);
+            return err;
         }
-        setIsLoading(false);
     }
 
     const postDataToApiHandler = async (payload) => {
         const { url, data } = payload;
+        console.log(url, data)
         setIsLoading(true);
         try {
             const responseData = await fetch(url, {
                 method: "POST",
-                mode: "no-cors",
+                // mode: "no-cors",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data)
             })
-            setResponse(responseData.json());
+            setIsLoading(false);
+            const dat = responseData.json();
+            return dat;
+            // return responseData.json();
         } catch (err) {
-            setError(err)
+            setIsLoading(false);
+            return err;
         }
     }
 
@@ -41,21 +46,21 @@ const useApi = () => {
         try {
             const responseData = await fetch(url, {
                 method: "DELETE",
-                mode: "no-cors",
+                // mode: "no-cors",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data)
             })
-            setResponse(responseData.json());
+            setIsLoading(false);
+            return responseData.json();
         } catch (err) {
-            setError(err)
+            setIsLoading(false);
+            return err;
         }
     }
 
     return {
-        response,
-        error,
         isLoading,
         getDataFromApiHandler,
         postDataToApiHandler,

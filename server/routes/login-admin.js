@@ -4,8 +4,10 @@ import userModel from "../models/user-model.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-    const { email, password } = req.body;
+router.get("/:email/:password", async (req, res) => {
+    const email = req.params.email;
+    const password = req.params.password;
+    
     await userModel
         .findOne({ email })
         .then((user) => {

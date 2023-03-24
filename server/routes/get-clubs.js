@@ -5,7 +5,7 @@ import clubModel from '../models/club-model.js'
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    await clubModel.find({}).then(clubs => {
+    await clubModel.find({}).populate("lead").then(clubs => {
         res.json({
             status: 200,
             clubs: clubs,

@@ -14,11 +14,16 @@ const Navigation = (props) => {
                             01. Home
                         </NavLink>
                     </li>
-                    <li className={styles["navigation-list__item"]}>
+                    {!props.isAdminLoggedIn && <li className={styles["navigation-list__item"]}>
                         <NavLink to="/admin" className={styles["nav-link"]}>
                             02. Admin
                         </NavLink>
-                    </li>
+                    </li>}
+                    {props.isAdminLoggedIn && <li className={styles["navigation-list__item"]}>
+                        <NavLink to="/admin/home" className={styles["nav-link"]}>
+                            02. Admin Home
+                        </NavLink>
+                    </li>}
                     <li className={styles["navigation-list__item"]}>
                         <NavLink to="/member" className={styles["nav-link"]}>
                             03. Manager/Member

@@ -7,6 +7,7 @@ import getEmailTransporter from "../middlewares/email.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
+  console.log(req.body)
   const { clubId, managerEmail, managerName } = req.body;
   let isManagerAdded = false;
 

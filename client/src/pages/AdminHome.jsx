@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 
 import AdminClubCard from "../components/ui/AdminClubCard";
 import Button from "../components/ui/Button";
@@ -7,38 +8,27 @@ import styles from "./adminhome.module.css";
 import AddClubManager from "../components/portals/AddClubManager";
 import AddClubPortal from "../components/portals/AddClubPortal";
 import DeleteClubPortal from "../components/portals/DeleteClubPortal";
-
-const CLUBS_DATA = [
-    {
-        clubName: "IEEE",
-        clubLead: "Mr.Abc",
-        noOfMember: 120,
-        tags: ["technical"],
-    },
-    {
-        clubName: "Rotaract Club",
-        clubLead: "Mr.Xyz",
-        noOfMember: 100,
-        tags: ["social"],
-    },
-    {
-        clubName: "NSS Club",
-        clubLead: "Mr.Abc",
-        noOfMember: 230,
-        tags: ["social", "service"],
-    },
-    {
-        clubName: "AI Club",
-        clubLead: "Mr.Xyz",
-        noOfMember: 80,
-        tags: ["technical"],
-    },
-];
+import useApi from "../hooks/useApi";
 
 const AdminHome = (props) => {
+    const { getDataFromApiHandler } = useApi();
     const [addClubPortalVisible, setAddClubPortalVisible] = useState(false);
     const [addManagerPortal, setAddManagerPortal] = useState(false);
     const [deleteClubPortal, setDeleteClubPortal] = useState(false);
+    const [clubsData, setClubsData] = useState([]);
+    const [isReRequestReq, setReRequestReq] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getClubHandler = async () => {
+            getDataFromApiHandler({ url: "http://localhost:5000/get-clubs" })
+                .then((res) => setClubsData(res.clubs))
+                .catch((err) => console.log(err));
+        };
+        getClubHandler();
+    }, [isReRequestReq]);
+
+    console.log(clubsData);
 
     return (
         <div className={styles["admin-page__Wrapper"]}>
@@ -57,7 +47,7 @@ const AdminHome = (props) => {
                         iconType="add"
                         value="Add Manager"
                         showPortal={() => {
-                            setAddManagerPortal(!addManagerPortal)
+                            setAddManagerPortal(!addManagerPortal);
                         }}
                     />
                     <Button
@@ -65,38 +55,68 @@ const AdminHome = (props) => {
                         iconType="edit"
                         value="Delete Club"
                         showPortal={() => {
-                            setDeleteClubPortal(!deleteClubPortal)
+                            setDeleteClubPortal(!deleteClubPortal);
                         }}
                     />
+                    <button
+                        className={styles["logout-btn"]}
+                        onClick={() => {
+                            localStorage.removeItem("isAdmin");
+                            localStorage.removeItem("admin_id");
+                            navigate("/");
+                        }}
+                    >
+                        Logout
+                    </button>
                 </div>
                 <div className={styles["clubs-wrapper"]}>
                     <h2>Clubs in College</h2>
                     <div className={styles["clubs"]}>
-                        {CLUBS_DATA.map((club) => {
-                            return (
-                                <AdminClubCard
-                                    clubName={club.clubName}
-                                    clubLead={club.clubLead}
-                                    tags={club.tags}
-                                    noOfMember={club.noOfMember}
-                                    key={Math.random()}
-                                />
-                            );
-                        })}
+                        {clubsData &&
+                            clubsData.map((club) => {
+                                return (
+                                    <AdminClubCard
+                                        clubName={club.clubName}
+                                        clubLead={club.lead?.username}
+                                        leadEmail={club.lead?.email}
+                                        tags={club.clubType}
+                                        noOfMember={club.noOfMembers}
+                                        key={Math.random()}
+                                    />
+                                );
+                            })}
+                        {clubsData === "" && <span>No Clubs Yet</span>}
                     </div>
                     {addClubPortalVisible &&
                         createPortal(
-                            <AddClubPortal />,
+                            <AddClubPortal
+                                closePortalHandler={() => {
+                                    setReRequestReq(!isReRequestReq);
+                                    setAddClubPortalVisible(false);
+                                }}
+                            />,
                             document.getElementById("portal")
                         )}
                     {deleteClubPortal &&
                         createPortal(
-                            <DeleteClubPortal />,
+                            <DeleteClubPortal
+                                clubs={clubsData}
+                                closePortalHandler={() => {
+                                    setReRequestReq(!isReRequestReq);
+                                    setDeleteClubPortal(false);
+                                }}
+                            />,
                             document.getElementById("portal")
                         )}
                     {addManagerPortal &&
                         createPortal(
-                            <AddClubManager />,
+                            <AddClubManager
+                                clubs={clubsData}
+                                closePortalHandler={() => {
+                                    setReRequestReq(!isReRequestReq);
+                                    setAddManagerPortal(false);
+                                }}
+                            />,
                             document.getElementById("portal")
                         )}
                 </div>

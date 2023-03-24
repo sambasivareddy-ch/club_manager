@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./ui.module.css";
+import styles from "./portal.module.css";
 
 const Toast = (props) => {
   const toastClass =

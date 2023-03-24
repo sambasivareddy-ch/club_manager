@@ -13,7 +13,6 @@ const Button = (props) => {
     const iconElement = props.iconType === "edit" ? <EditIcon /> : <AddIcon />;
 
     const onClickHandler = () => {
-        console.log("hi")
         props.showPortal();
     };
 

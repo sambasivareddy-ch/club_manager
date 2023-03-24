@@ -51,27 +51,27 @@
 }
 
 .toast_wrapper {
-    width: 200px;
-    padding: 20px;
+    width: 150px;
+    padding: 10px;
     border-radius: 5px;
     text-align: center;
     color: #fff;
-    font-size: 16px;
+    font-size: 12px;
     position: fixed;
     bottom: 10px;
     left: 10px;
 }
 
 .toast_wrapper_success {
-    background-color: green;
+    background-color: #43a047;
 }
 
 .toast_wrapper_failure {
-    background-color: red;
+    background-color: #ff1744;
 }
 
 .toast_wrapper_loading {
-    background-color: skyblue;
+    background-color: #2196f3;
 }
 
 @media screen and (max-width:600px){
