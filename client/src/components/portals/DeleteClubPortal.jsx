@@ -55,6 +55,14 @@ const DeleteClubPortal = (props) => {
                     value="Delete Club"
                     className={styles["portal-submit__btn"]}
                 />
+                <button
+                    className={styles["portal-submit__btn"]}
+                    onClick={() => {
+                        props.closePortalHandler();
+                    }}
+                >
+                    Close
+                </button>
             </form>
         </div>
     );

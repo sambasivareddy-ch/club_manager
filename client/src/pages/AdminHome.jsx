@@ -72,7 +72,7 @@ const AdminHome = (props) => {
                 <div className={styles["clubs-wrapper"]}>
                     <h2>Clubs in College</h2>
                     <div className={styles["clubs"]}>
-                        {clubsData &&
+                        {clubsData.length > 0 &&
                             clubsData.map((club) => {
                                 return (
                                     <AdminClubCard
@@ -85,7 +85,7 @@ const AdminHome = (props) => {
                                     />
                                 );
                             })}
-                        {clubsData === "" && <span>No Clubs Yet</span>}
+                        {clubsData.length === 0 && <span>No Clubs Yet</span>}
                     </div>
                     {addClubPortalVisible &&
                         createPortal(

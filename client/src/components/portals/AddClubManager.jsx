@@ -30,8 +30,8 @@ const AddClubManager = (props) => {
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
         }
-        managerEmail.current.value = '';
-        managerName.current.value = '';
+        managerEmail.current.value = "";
+        managerName.current.value = "";
         props.closePortalHandler();
     };
 
@@ -75,6 +75,14 @@ const AddClubManager = (props) => {
                     value="Add Manager"
                     className={styles["portal-submit__btn"]}
                 />
+                <button
+                    className={styles["portal-submit__btn"]}
+                    onClick={() => {
+                        props.closePortalHandler();
+                    }}
+                >
+                    Close
+                </button>
             </form>
         </div>
     );

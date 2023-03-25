@@ -12,7 +12,7 @@
 }
 
 .portal-form {
-    width: 500px;
+    width: 400px;
     height: fit-content;
     padding: 20px;
     background-color: #FFF;
@@ -42,7 +42,7 @@
     font-size: 14px;
     letter-spacing: 1px;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
 }
 
 .portal-submit__btn:hover {
