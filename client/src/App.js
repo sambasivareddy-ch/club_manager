@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { createPortal } from "react-dom";
 
+import useApi from "./hooks/useApi";
 import Navigation from "./components/navigation/Navigation";
 import Admin from "./components/forms/Admin";
 import Member from "./components/forms/Member";
@@ -8,207 +10,7 @@ import AdminHome from "./pages/AdminHome";
 import ClubPage from "./pages/ClubPage";
 import Home from "./pages/Home";
 import styles from "./app.module.css";
-
-const DUMMY_CLUBS = [
-    {
-        clubName: "IEEE",
-        clubLead: "Mr. Abc",
-        leadDept: "CSE",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-    {
-        clubName: "NSS",
-        clubLead: "Mrs. Xyz",
-        leadDept: "IT",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-    {
-        clubName: "GVP AI Club",
-        clubLead: "Mr. Abc",
-        leadDept: "ECE",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-    {
-        clubName: "Rotaract Club",
-        clubLead: "Mrs. Abc",
-        leadDept: "EEE",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-    {
-        clubName: "Home of Humanity",
-        clubLead: "Mr. Abc",
-        leadDept: "CSE",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-    {
-        clubName: "IoT club",
-        clubLead: "Mrs. Def",
-        leadDept: "Civil",
-        aboutClub: "DUMMy ABout",
-        members: [
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-            {
-                memberName: "Samba Chinta",
-                memberRole: "Lead",
-                memberType: "Student",
-            },
-        ],
-        clubEvents: [
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-            {
-                eventTitle: "Hello World!",
-                aboutEvent: "Dummy Event About",
-            },
-        ],
-    },
-];
+import Toast from "./components/portals/Toast";
 
 const DUMMY_EVENTS = [
     {
@@ -244,35 +46,80 @@ const DUMMY_EVENTS = [
 ];
 
 const App = () => {
+    const { getDataFromApiHandler } = useApi();
     const [isAdminExists, setIsAdminExists] = useState(null);
+    const [clubsData, setClubsData] = useState();
+    const [hasError, setHasError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setHasError(false);
+        });
+    }, [hasError]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        });
+    }, [isLoading]);
+
     useEffect(() => {
         setIsAdminExists(localStorage.getItem("isAdmin"));
     }, []);
-  
+
+    useEffect(() => {
+        const getClubsInfoHandler = async () => {
+            setIsLoading(true);
+            await getDataFromApiHandler({
+                url: "http://localhost:5000/get-clubs",
+            })
+                .then((res) => setClubsData(res.clubs))
+                .catch((err) => setHasError(true));
+            setIsLoading(false);
+        };
+        getClubsInfoHandler();
+    }, []);
+
+    console.log(clubsData);
+
     return (
         <div className={styles["app"]}>
             <Navigation isAdminLoggedIn={isAdminExists} />
             <Routes>
                 <Route
                     path="/"
-                    element={<Home clubs={DUMMY_CLUBS} events={DUMMY_EVENTS} />}
+                    element={<Home clubs={clubsData ? clubsData: []} events={DUMMY_EVENTS} />}
                 />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/member" element={<Member />} />
-                {isAdminExists && <Route path="/admin/home" element={<AdminHome />} />}
-                {DUMMY_CLUBS.map((club) => {
-                    return (
-                        <Route
-                            key={Math.random()}
-                            path={`/club/${club.clubName
-                                .split(" ")
-                                .join("-")
-                                .toLowerCase()}`}
-                            element={<ClubPage club={club} />}
-                        />
-                    );
-                })}
+                {isAdminExists && (
+                    <Route path="/admin/home" element={<AdminHome />} />
+                )}
+                {clubsData &&
+                    clubsData.map((club) => {
+                        return (
+                            <Route
+                                key={Math.random()}
+                                path={`/club/${club.clubName
+                                    .split(" ")
+                                    .join("-")
+                                    .toLowerCase()}`}
+                                element={<ClubPage club={club} />}
+                            />
+                        );
+                    })}
             </Routes>
+            {hasError &&
+                createPortal(
+                    <Toast message="An Error Occurred" typeOfToast="error" />,
+                    document.getElementById("portal")
+                )}
+            {isLoading &&
+                createPortal(
+                    <Toast message="Loading..." typeOfToast="loading" />,
+                    document.getElementById("portal")
+                )}
         </div>
     );
 };

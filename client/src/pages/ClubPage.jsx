@@ -14,17 +14,21 @@ const ClubPage = (props) => {
     const [managerInfo, setManagerInfo] = useState({});
 
     useEffect(() => {
-        const is_key_exists = localStorage.getItem('is_manager');
-        const get_club_name = localStorage.getItem('club_name')
-        const obj = {is_key_exists, get_club_name}
+        const is_key_exists = localStorage.getItem("is_manager");
+        const get_club_name = localStorage.getItem("club_name");
+        const obj = { is_key_exists, get_club_name };
         if (is_key_exists && get_club_name) {
             setManagerInfo(obj);
         }
-    }, [])
+    }, []);
 
     return (
         <div className={styles["club-page__wrapper"]}>
-            <ClubHeader clubName={props.club.clubName} managerInfo = {managerInfo} club_id = {props.club._id}/>
+            <ClubHeader
+                clubName={props.club.clubName}
+                managerInfo={managerInfo}
+                club_id={props.club._id}
+            />
             <ClubInfo aboutClub={props.club.aboutClub} />
             <div className={styles["club-members__wrapper"]}>
                 <h2>Club Members</h2>

@@ -17,7 +17,8 @@ const ClubCard = (props) => {
             setShowClubPage(true);
         }}>
             <p className={styles['club-title']}>{props.clubName}</p>
-            <span className={styles['club-lead']}>Lead: { `${props.clubLead} (${props.leadDept})` }</span>
+            <span className={styles['club-lead']}>Lead: {`${props.clubLead ? props.clubLead : 'None'}`}</span>
+            <span className={styles['club-lead']}>Email: { `${props.leadEmail ? props.leadEmail : 'None'}` }</span>
         </div>
     )
 }

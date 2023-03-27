@@ -10,6 +10,7 @@ router.delete("/", async (req, res) => {
     await userModel.updateMany({ club: clubId }, [
         {
             $set: {
+                isManager: false,
                 club: null,
             },
         },

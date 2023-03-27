@@ -6,13 +6,15 @@
     display: flex;
     flex-direction: column;
     gap: 20px 0;
-    height: 50vh;
+    height: 70vh;
     align-items: center;
     justify-content: center;
+    /* background-image: url('../../assets/club_bg.jpg');
+    background-size: cover; */
 }
 
 .club-title {
-    font-size: 3em;
+    font-size: 5em;
     color: blueviolet;
 }
 
@@ -98,6 +100,9 @@
 }
 
 @media screen and (max-width: 600px) {
+    .club-title {
+        font-size: 3em;
+    }
     .club-about {
         width: 95%;
     }

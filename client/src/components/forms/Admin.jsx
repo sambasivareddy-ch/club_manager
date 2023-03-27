@@ -10,6 +10,7 @@ const Admin = (props) => {
     const [response, setResponse] = useState(false);
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [validateError, setValidateError] = useState(false);
     const navigate = useNavigate();
 
     const adminEmail = useRef("");
@@ -27,21 +28,32 @@ const Admin = (props) => {
         }, 5000);
     }, [response]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            setValidateError(false);
+        }, 5000);
+    }, [validateError]);
+
     const formSubmitHandler = async (e) => {
         e.preventDefault();
         const enteredMail = adminEmail.current.value.toLowerCase();
         const enteredPassword = adminPassword.current.value;
+        const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-        if (enteredMail !== "" && enteredPassword !== "") {
+        if (
+            emailRegex.test(enteredMail) &&
+            enteredMail !== "" &&
+            enteredPassword !== ""
+        ) {
             setIsLoading(true);
             const payload = {
                 url: `http://localhost:5000/admin-login/${enteredMail}/${enteredPassword}`,
             };
             await getDataFromApiHandler(payload)
                 .then((res) => {
-                    localStorage.setItem('isAdmin', true);
-                    localStorage.setItem('admin_id', res.adminId);
-                    navigate('/admin/home')
+                    localStorage.setItem("isAdmin", true);
+                    localStorage.setItem("admin_id", res.adminId);
+                    navigate("/admin/home");
                     setResponse(true);
                 })
                 .catch((err) => {
@@ -49,13 +61,13 @@ const Admin = (props) => {
                     setError(true);
                 });
             setIsLoading(false);
+        } else {
+            setValidateError(true);
         }
 
         adminEmail.current.value = "";
         adminPassword.current.value = "";
     };
-
-    console.table(response, error, isLoading);
 
     return (
         <div className={styles["form-wrapper"]}>
@@ -92,6 +104,12 @@ const Admin = (props) => {
             )}
             {error && <Toast typeOfToast="error" message="Login Failed" />}
             {isLoading && <Toast typeOfToast="loading" message="Loading..." />}
+            {validateError && (
+                <Toast
+                    typeOfToast="error"
+                    message="Please enter all fields & valid data.."
+                />
+            )}
         </div>
     );
 };

@@ -8,7 +8,7 @@ import styles from "./home.module.css";
 
 const Home = (props) => {
   const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
-
+  console.log(props)
   return (
     <div className={styles["home-wrapper"]}>
       <Intro />
@@ -20,8 +20,8 @@ const Home = (props) => {
               <li key={Math.random()} className={styles["club-list__item"]}>
                 <ClubCard
                   clubName={club.clubName}
-                  clubLead={club.clubLead}
-                  leadDept={club.leadDept}
+                  clubLead={club.lead ? club.lead.username : ''}
+                  leadEmail={club.lead ? club.lead.email: ''}
                 />
               </li>
             );

@@ -4,8 +4,9 @@ import userModel from '../models/user-model.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-    const {email, password} = req.body;
+router.get('/:email/:password', async (req, res) => {
+    const email = req.params.email;
+    const password = req.params.password;
 
     try {
         const manager = await userModel.findOne({email: email})
@@ -17,6 +18,7 @@ router.post('/', async (req, res) => {
         }else {
             res.json({
                 status: 201,
+                club: manager,
                 message: "Successfully Loggedin"
             })
         }
