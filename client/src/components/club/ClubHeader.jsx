@@ -47,17 +47,23 @@ const ClubHeader = (props) => {
         )}
       {isEditAboutEnabled &&
         createPortal(
-          <AddClubAbout club_id={props.club_id} />,
+          <AddClubAbout club_id={props.club_id} portalCloseHandler = {() => {
+            setIsEditAboutEnabled(false)
+          }}/>,
           document.getElementById("portal")
         )}
       {isAddMemberEnabled &&
         createPortal(
-          <AddClubMember club_id={props.club_id} />,
+          <AddClubMember club_id={props.club_id} portalCloseHandler = {() => {
+            setIsAddMemberEnabled(false)
+          }}/>,
           document.getElementById("portal")
         )}
       {isAddEventEnabled &&
         createPortal(
-          <AddClubEvent club_id={props.club_id} />,
+          <AddClubEvent club_id={props.club_id} portalCloseHandler = {() => {
+            setIsAddEventEnabled(false);
+          }}/>,
           document.getElementById("portal")
         )}
     </div>

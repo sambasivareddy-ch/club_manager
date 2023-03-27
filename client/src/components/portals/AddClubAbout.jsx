@@ -4,7 +4,7 @@ import useApi from "../../hooks/useApi";
 import styles from "./portal.module.css";
 
 const AddClubAbout = (props) => {
-    const {response, error, loadingStatus, postDataToApiHandler} = useApi();
+    const {postDataToApiHandler} = useApi();
     const aboutTheClub = useRef(null);
 
     const formSubmitHandler = async (e) => {
@@ -32,6 +32,14 @@ const AddClubAbout = (props) => {
                     value="Add Description"
                     className={styles["portal-submit__btn"]}
                 />
+                <button
+                    className={styles["portal-submit__btn"]}
+                    onClick={() => {
+                        props.portalCloseHandler();
+                    }}
+                >
+                    Close
+                </button>
             </form>
         </div>
     );

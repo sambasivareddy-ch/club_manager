@@ -5,7 +5,7 @@ import userModel from "../models/user-model.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const { username, isAdmin, isManager, club, userType, email, password } =
+  const { username, isAdmin, isManager, club, userType, email } =
     req.body;
 
   const user = await userModel.findOne({ email });
