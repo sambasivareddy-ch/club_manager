@@ -18,7 +18,7 @@ router.get('/:email/:password', async (req, res) => {
         }else {
             res.json({
                 status: 201,
-                club: manager,
+                club: await clubModel.findById(manager.club).clubName,
                 message: "Successfully Loggedin"
             })
         }

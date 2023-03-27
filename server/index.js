@@ -14,6 +14,7 @@ import addUserRoute from "./routes/add-users.js";
 import addClubAboutRoute from "./routes/add-club-about.js";
 import addEventRoute from "./routes/add-event.js";
 import getClubInfoRoute from "./routes/get-club-info.js";
+import getEventsRoute from "./routes/get-events.js";
 
 config();
 
@@ -48,6 +49,7 @@ app.use("/add-user", addUserRoute);
 app.use("/add-club-about", addClubAboutRoute);
 app.use("/add-event", addEventRoute);
 app.use("/get-info", getClubInfoRoute);
+app.use("/get-events", getEventsRoute);
 
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => {

@@ -162,6 +162,19 @@
     line-height: 22px;
 }
 
+.page_not_found-wrapper {
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    place-items: center;
+}
+
+.page_not_found-wrapper h3 {
+    font-size: 2em;
+    letter-spacing: 1px;
+    color: indianred;
+}
+
 @media screen and (max-width: 600px) {
     .footer-wrapper {
         flex-direction: column;

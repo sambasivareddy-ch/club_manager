@@ -8,14 +8,13 @@ import styles from "./home.module.css";
 
 const Home = (props) => {
   const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
-  console.log(props)
   return (
     <div className={styles["home-wrapper"]}>
       <Intro />
       <div className={styles["club-list__wrapper"]}>
         <h2>Clubs in the College</h2>
         <ol className={styles["club-list"]}>
-          {props.clubs.map((club) => {
+          {props.clubs.length > 0 ? props.clubs.map((club) => {
             return (
               <li key={Math.random()} className={styles["club-list__item"]}>
                 <ClubCard
@@ -25,7 +24,7 @@ const Home = (props) => {
                 />
               </li>
             );
-          })}
+          }) : <li>No clubs at present</li>}
         </ol>
       </div>
       <div className={styles["events-wrapper"]}>
@@ -51,7 +50,7 @@ const Home = (props) => {
           </div>
         </div>
         <div className={styles["events"]}>
-          {selectedDate === new Date().toDateString() &&
+          {props.events.length > 0 && selectedDate === new Date().toDateString() &&
             props.events.map((evnt) => {
               return (
                 <EventCard
@@ -62,7 +61,7 @@ const Home = (props) => {
                 />
               );
             })}
-          {selectedDate !== new Date().toDateString() &&
+          {props.events.length > 0 && selectedDate !== new Date().toDateString() &&
             props.events.filter(
               (evnt) => evnt.eventDate.toDateString() === selectedDate
             ).map((evnt) => {
@@ -75,6 +74,7 @@ const Home = (props) => {
                 />
               );
             })}
+          {props.events.length === 0 && <p>No Events in near by future</p>}
         </div>
       </div>
       <Footer />
