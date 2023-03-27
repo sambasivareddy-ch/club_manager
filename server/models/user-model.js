@@ -12,7 +12,10 @@ const userSchema = new Schema({
     },
     userType: string_type,
     email: string_type,
-    password: string_type,
+    password: {
+        ...string_type,
+        required: false,
+    },
 }, {
     collection: "Users"
 })

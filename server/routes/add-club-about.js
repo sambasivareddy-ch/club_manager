@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
     const {club_id, about} = req.body;
-
+    console.log(club_id)
     await clubModel.findByIdAndUpdate(club_id, {
         $set: {
             aboutClub: about,

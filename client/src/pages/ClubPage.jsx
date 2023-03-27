@@ -15,7 +15,7 @@ const ClubPage = (props) => {
 
     useEffect(() => {
         const is_key_exists = localStorage.getItem("is_manager");
-        const get_club_name = localStorage.getItem("club_name");
+        const get_club_name = localStorage.getItem("club_id");
         const obj = { is_key_exists, get_club_name };
         if (is_key_exists && get_club_name) {
             setManagerInfo(obj);
@@ -37,9 +37,9 @@ const ClubPage = (props) => {
                         props.club.members.slice(0, 6).map((member) => {
                             return (
                                 <ClubMember
-                                    memberName={member.memberName}
-                                    memberRole={member.memberRole}
-                                    memberType={member.memberType}
+                                    memberName={member.username}
+                                    memberRole={member.email}
+                                    memberType={member.userType}
                                     key={Math.random()}
                                 />
                             );
@@ -48,9 +48,9 @@ const ClubPage = (props) => {
                         props.club.members.map((member) => {
                             return (
                                 <ClubMember
-                                    memberName={member.memberName}
-                                    memberRole={member.memberRole}
-                                    memberType={member.memberType}
+                                    memberName={member.username}
+                                    memberRole={member.email}
+                                    memberType={member.userType}
                                     key={Math.random()}
                                 />
                             );
@@ -72,8 +72,11 @@ const ClubPage = (props) => {
                         props.club.clubEvents.slice(0, 3).map((events) => {
                             return (
                                 <ClubEventCard
-                                    eventTitle={events.eventTitle}
+                                    eventDate={events.eventDate}
+                                    eventName={events.eventName}
                                     aboutEvent={events.aboutEvent}
+                                    registerLink={events.registerLink}
+                                    eventPageLink={events.eventPageLink}
                                     key={Math.random()}
                                 />
                             );
@@ -82,8 +85,11 @@ const ClubPage = (props) => {
                         props.club.clubEvents.map((events) => {
                             return (
                                 <ClubEventCard
-                                    eventTitle={events.eventTitle}
+                                    eventDate={events.eventDate}
+                                    eventName={events.eventName}
                                     aboutEvent={events.aboutEvent}
+                                    registerLink={events.registerLink}
+                                    eventPageLink={events.eventPageLink}
                                     key={Math.random()}
                                 />
                             );

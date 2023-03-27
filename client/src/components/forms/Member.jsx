@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./form.module.css";
 import useApi from "../../hooks/useApi";
 import Toast from "../portals/Toast";
 
 const Member = (props) => {
+    const navigate = useNavigate();
     const memberEmail = useRef("");
     const memberPassword = useRef("");
 
@@ -14,6 +16,14 @@ const Member = (props) => {
     const [validateError, setValidateError] = useState(false);
 
     const { getDataFromApiHandler } = useApi();
+
+    useEffect(() => {
+        const is_key_exists = localStorage.getItem("is_manager");
+        const club_id = localStorage.getItem("club_id");
+        if (is_key_exists && club_id) {
+            navigate(`/club/${club_id}`)
+        }
+    }, []);
 
     useEffect(() => {
         setTimeout(() => {
@@ -50,10 +60,9 @@ const Member = (props) => {
             };
             await getDataFromApiHandler(payload)
                 .then((res) => {
-                    // localStorage.setItem("i", true);
-                    // localStorage.setItem("admin_id", res.adminId);
-                    // navigate("/admin/home");
-                    console.log(res);
+                    localStorage.setItem("is_manager", true);
+                    localStorage.setItem("club_id", res.club_id);
+                    navigate(`/club/${res.club_id}`);
                     setResponse(true);
                 })
                 .catch((err) => {

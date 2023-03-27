@@ -28,8 +28,6 @@ const AdminHome = (props) => {
         getClubHandler();
     }, [isReRequestReq]);
 
-    console.log(clubsData);
-
     return (
         <div className={styles["admin-page__Wrapper"]}>
             <div className={styles["admin-page"]}>

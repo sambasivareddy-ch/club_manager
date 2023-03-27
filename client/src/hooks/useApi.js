@@ -21,8 +21,9 @@ const useApi = () => {
                 },
                 body: JSON.stringify(data)
             })
-            const dat = responseData.json();
-            return dat;
+            if (responseData.ok) {
+                return responseData.json();
+            }
             // return responseData.json();
         } catch (err) {
             return err;

@@ -15,10 +15,10 @@ router.get('/:email/:password', async (req, res) => {
                 status: 401,
                 message: "Invalid Credentials"
             })
-        }else {
+        } else {
             res.json({
                 status: 201,
-                club: await clubModel.findById(manager.club).clubName,
+                club_id: manager.club,
                 message: "Successfully Loggedin"
             })
         }

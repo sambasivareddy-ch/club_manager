@@ -16,7 +16,7 @@ const AddClubMember = (props) => {
         const email = memberEmail.current.value.trim();
         const userType = memberRole.current.value.trim();
 
-        if (userName && email && userType) {
+        if (username && email && userType) {
             await postDataToApiHandler({
                 url: "http://localhost:5000/add-user",
                 data: {
@@ -24,8 +24,8 @@ const AddClubMember = (props) => {
                     username,
                     isAdmin: false,
                     isManager: false,
-                    userType
-                    email
+                    userType,
+                    email,
                     password: ''
                 },
             })
@@ -35,11 +35,13 @@ const AddClubMember = (props) => {
 
         memberName.current.value = '';
         memberEmail.current.value = '';
-        memberRole.current.value
+        memberRole.current.value = '';
+        props.portalCloseHandler();
     }
+    
     return (
         <div className={styles["portal-wrapper"]}>
-            <form className={styles["portal-form"]}>
+            <form className={styles["portal-form"]} onSubmit={formSubmitHandler}>
                 <h3>Add New Club Member</h3>
                 <input
                     type="text"

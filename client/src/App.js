@@ -52,13 +52,12 @@ const App = () => {
       await getDataFromApiHandler({
         url: "http://localhost:5000/get-events",
       })
-        .then((res) => setEventsData(res))
+        .then((res) => setEventsData(res.events))
         .catch((err) => setHasError(true));
     };
+    getEventsInfoHandler();
     getClubsInfoHandler();
   }, []);
-
-  console.log(clubsData);
 
   return (
     <div className={styles["app"]}>
@@ -81,10 +80,7 @@ const App = () => {
             return (
               <Route
                 key={Math.random()}
-                path={`/club/${club.clubName
-                  .split(" ")
-                  .join("-")
-                  .toLowerCase()}`}
+                path={`/club/${club._id}`}
                 element={<ClubPage club={club} />}
               />
             );

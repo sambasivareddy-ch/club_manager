@@ -46,7 +46,7 @@ app.use("/delete-club", deleteClubRoute);
 app.use("/get-clubs", getClubsRoute);
 app.use("/admin-login", adminLoginRoute);
 app.use("/add-user", addUserRoute);
-app.use("/add-club-about", addClubAboutRoute);
+app.use("/add-about-club", addClubAboutRoute);
 app.use("/add-event", addEventRoute);
 app.use("/get-info", getClubInfoRoute);
 app.use("/get-events", getEventsRoute);

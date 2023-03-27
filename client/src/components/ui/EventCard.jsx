@@ -9,7 +9,10 @@ const EventCard = (props) => {
             <h3 className={styles['event-name']}>{props.eventName}</h3>
             <div className={styles['event-details']}>
                 <p>Organising By: {props.hostClub}</p>
-                <a href='/' target="_blank" className={styles['register-link']}>Register Here!</a>
+                <div className={styles['event-links']}>
+                    <a href={props.registerLink} target="_blank" rel="noreferrer">Register Here!</a>
+                    <a href={props.eventPageLink} target="_blank" rel="noreferrer">Event Preview</a>
+                </div>
             </div>
         </div>
     )

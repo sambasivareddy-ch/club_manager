@@ -8,6 +8,7 @@ import styles from "./home.module.css";
 
 const Home = (props) => {
   const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
+  
   return (
     <div className={styles["home-wrapper"]}>
       <Intro />
@@ -18,6 +19,7 @@ const Home = (props) => {
             return (
               <li key={Math.random()} className={styles["club-list__item"]}>
                 <ClubCard
+                  clubId={club._id}
                   clubName={club.clubName}
                   clubLead={club.lead ? club.lead.username : ''}
                   leadEmail={club.lead ? club.lead.email: ''}
@@ -42,7 +44,7 @@ const Home = (props) => {
               {props.events.map((evnt) => {
                 return (
                   <option key={Math.random()}>
-                    {evnt.eventDate.toDateString()}
+                    {new Date(evnt.eventDate).toDateString()}
                   </option>
                 );
               })}
@@ -55,20 +57,22 @@ const Home = (props) => {
               return (
                 <EventCard
                   key={Math.random()}
-                  eventDate={evnt.eventDate.toDateString()}
+                  eventDate={new Date(evnt.eventDate).toDateString()}
                   eventName={evnt.eventName}
-                  hostClub={evnt.hostClub}
+                  hostClub={evnt.club.clubName}
+                  registerLink={evnt.registerLink}
+                  eventPageLink={evnt.eventPageLink}
                 />
               );
             })}
           {props.events.length > 0 && selectedDate !== new Date().toDateString() &&
             props.events.filter(
-              (evnt) => evnt.eventDate.toDateString() === selectedDate
+              (evnt) => new Date(evnt.eventDate).toDateString() === selectedDate
             ).map((evnt) => {
               return (
                 <EventCard
                   key={Math.random()}
-                  eventDate={evnt.eventDate.toDateString()}
+                  eventDate={new Date(evnt.eventDate).toDateString()}
                   eventName={evnt.eventName}
                   hostClub={evnt.hostClub}
                 />

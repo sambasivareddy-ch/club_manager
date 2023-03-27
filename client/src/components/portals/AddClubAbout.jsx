@@ -20,13 +20,14 @@ const AddClubAbout = (props) => {
                 console.log(err)
             })
         }
+        props.portalCloseHandler();
     }
 
     return (
         <div className={styles["portal-wrapper"]}>
             <form className={styles["portal-form"]} onSubmit={formSubmitHandler}>
                 <h3>Add Description of Club</h3>
-                <textarea className={styles["portal__input-field"]} rows={20} ref={aboutTheClub}></textarea>
+                <textarea className={styles["portal__input-field"]} rows={15} ref={aboutTheClub}></textarea>
                 <input
                     type="submit"
                     value="Add Description"

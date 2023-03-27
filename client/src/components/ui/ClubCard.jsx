@@ -8,7 +8,7 @@ const ClubCard = (props) => {
 
     useEffect(() => {
         if(showClubPage) {
-            navigate(`/club/${props.clubName.split(' ').join('-').toLowerCase()}`)
+            navigate(`/club/${props.clubId}`)
         }
     }, [showClubPage])
 

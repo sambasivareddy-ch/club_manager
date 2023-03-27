@@ -19,11 +19,11 @@ const AddClubEvent = (props) => {
     const registerLink = eventRegisterRef.current.value.trim();
     const eventPageLink = eventPageRef.current.value.trim();
 
-    if (userName && email && userType) {
+    if (eventName && aboutEvent && eventDate && registerLink && eventPageLink) {
         await postDataToApiHandler({
-            url: "http://localhost:5000/add-user",
+            url: "http://localhost:5000/add-event",
             data: {
-                club: props.club_id,
+                club_id: props.club_id,
                 eventName,
                 aboutEvent,
                 eventDate,
@@ -40,11 +40,12 @@ const AddClubEvent = (props) => {
     eventDateRef.current.value = '';
     eventRegisterRef.current.value = '';
     eventPageRef.current.value = '';
+    props.portalCloseHandler();
   }
 
   return (
     <div className={styles["portal-wrapper"]}>
-      <form className={styles["portal-form"]}>
+      <form className={styles["portal-form"]} onSubmit={formSubmitHandler}>
         <h3>Add New Event</h3>
         <input
           type="text"
