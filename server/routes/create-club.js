@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     const { adminId, clubName, noOfMembers, clubType } = req.body;
-    console.log(req.body)
     const admin = await userModel.findById(adminId);
 
     if (admin && admin.isAdmin) {

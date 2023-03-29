@@ -5,12 +5,11 @@ import clubModel from '../models/club-model.js';
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
-    const {club_id} = req.params.id;
-
-    await clubModel.findById(club_id)
+    const id = req.params.id;
+    await clubModel.findById(id)
     .then(club => {
         res.json({
-            message: 201,
+            status: 201,
             club: club
         })
     })
