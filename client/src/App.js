@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { useDispatch } from "react-redux";
 
 import useApi from "./hooks/useApi";
 import Navigation from "./components/navigation/Navigation";
@@ -12,14 +13,25 @@ import Home from "./pages/Home";
 import styles from "./app.module.css";
 import Toast from "./components/portals/Toast";
 import PageNotFound from "./components/ui/PageNotFound";
+import { eventDatesActions } from "./store/eventDateSlice";
 
 const App = () => {
+  const dispatcher = useDispatch();
   const { getDataFromApiHandler } = useApi();
   const [isAdminExists, setIsAdminExists] = useState(null);
   const [clubsData, setClubsData] = useState();
   const [eventsData, setEventsData] = useState();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  if (eventsData) {
+    for (let i = 0; i < eventsData.length; i++) {
+      const evntDate = eventsData[i].eventDate;
+      dispatcher(eventDatesActions.add({
+        date: new Date(evntDate).toDateString(),
+      }))
+    }
+  }
 
   useEffect(() => {
     setTimeout(() => {

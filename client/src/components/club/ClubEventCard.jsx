@@ -4,7 +4,6 @@ import styles from "./clubui.module.css";
 import event from "../../assets/event.jpg";
 
 const ClubEventCard = (props) => {
-    console.log(props)
     return (
         <div className={styles["club-event_card__wrapper"]}>
             <img src={event} alt="Event Poster" />
