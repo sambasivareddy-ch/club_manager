@@ -49,7 +49,7 @@ const AddClubEvent = (props) => {
             alreadyExistEventDates.includes(new Date(eventDate).toDateString())
         ) {
             alert(
-                `An event is already scheduled on that date: ${alreadyExistEventDates}`
+                `An event is already scheduled on that date, already reserved dates for the events are: ${alreadyExistEventDates.join('\n')}`
             );
         }
 
