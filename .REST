@@ -1,4 +1,4 @@
-POST http://localhost:5000/create-admin
+POST https://clubmanager-production.up.railway.app/create-admin
 Content-Type: application/json
 
 {
@@ -7,8 +7,8 @@ Content-Type: application/json
     "isManager": false,
     "club": null,
     "userType": "Admin",
-    "email": "19131a0542@gvpce.ac.in",
-    "password": "sivaChinta@123"
+    "email": "sambasivareddyc4@gmail.com",
+    "password": "*********"
 }
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
     "email": "19131a0542@gvpce.ac.in",
-    "password": "sivaChinta@123"
+    "password": "*********"
 }
 
 ###
@@ -52,7 +52,7 @@ Content-Type: application/json
     "club": null,
     "userType": "Member",
     "email": "sambasivareddy@gmail.com",
-    "password": "sivaChinta@123"
+    "password": "*********"
 }
 
 ###

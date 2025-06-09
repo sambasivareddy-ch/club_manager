@@ -21,8 +21,8 @@ router.post("/", async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "19131a0542@gvpce.ac.in", // generated ethereal user
-            pass: "gvpcoe@143", // generated ethereal password
+            user: process.env.email, // generated ethereal user
+            pass: process.env.emailPassword, // generated ethereal password
         },
     });
 

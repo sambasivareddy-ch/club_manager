@@ -9,7 +9,6 @@ router.post('/', async (req, res) => {
     const {eventName, aboutEvent, eventDate, club_id, registerLink, eventPageLink } = req.body;
 
     const eventHeldingClub = await clubModel.findById(club_id);
-    console.log(eventHeldingClub)
     try {
         const newEvent = await eventModel.create({
             eventName,
