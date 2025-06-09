@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
             eventName,
             aboutEvent,
             eventDate: new Date(eventDate),
-            club: eventHeldingClub,
+            club: club_id,
             registerLink,
             eventPageLink
         })
