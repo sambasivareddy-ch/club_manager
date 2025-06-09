@@ -19,7 +19,9 @@ router.post("/", async (req, res) => {
     }
 
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+       host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.email, // generated ethereal user
             pass: process.env.emailPassword, // generated ethereal password
@@ -59,7 +61,7 @@ router.post("/", async (req, res) => {
     if (manager) {
         await transporter
             .sendMail({
-                from: "19131a0542@gvpce.ac.in", // sender address
+                from: process.env.email, // sender address
                 to: managerEmail, // list of receivers
                 subject: "Hola! You are added as a manager to a club", // Subject line
                 html: `
