@@ -28,9 +28,7 @@ const AddClubEvent = (props) => {
             eventName &&
             aboutEvent &&
             eventDate &&
-            registerLink &&
-            eventPageLink &&
-            !alreadyExistEventDates.includes(new Date(eventDate).toDateString())
+            registerLink
         ) {
             await postDataToApiHandler({
                 url: `${process.env.REACT_APP_SERVER_URL}/add-event`,
