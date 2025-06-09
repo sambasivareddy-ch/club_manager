@@ -56,7 +56,7 @@ const Member = (props) => {
         ) {
             setIsLoading(true);
             const payload = {
-                url: `http://localhost:5000/manager-login/${enteredMail}/${enteredPassword}`,
+                url: `${process.env.REACT_APP_SERVER_URL}/manager-login/${enteredMail}/${enteredPassword}`,
             };
             await getDataFromApiHandler(payload)
                 .then((res) => {

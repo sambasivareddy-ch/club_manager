@@ -20,7 +20,7 @@ const AddClubManager = (props) => {
 
         if (enteredEmail && enteredName && selectedClubID !== "") {
             await postDataToApiHandler({
-                url: "http://localhost:5000/add-manager",
+                url: `${process.env.REACT_APP_SERVER_URL}/add-manager`,
                 data: {
                     clubId: selectedClubID,
                     managerEmail: enteredEmail,

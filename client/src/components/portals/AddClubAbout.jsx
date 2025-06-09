@@ -11,7 +11,7 @@ const AddClubAbout = (props) => {
         e.preventDefault();
         if (aboutTheClub.current.value.trim()) {
             await postDataToApiHandler({
-                url: 'http://localhost:5000/add-about-club',
+                url: `${process.env.REACT_APP_SERVER_URL}/add-about-club`,
                 data: {
                     club_id: props.club_id,
                     about: aboutTheClub.current.value.trim()

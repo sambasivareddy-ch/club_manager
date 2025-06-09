@@ -47,7 +47,7 @@ const Admin = (props) => {
         ) {
             setIsLoading(true);
             const payload = {
-                url: `http://localhost:5000/admin-login/${enteredMail}/${enteredPassword}`,
+                url: `${process.env.REACT_APP_SERVER_URL}/admin-login/${enteredMail}/${enteredPassword}`,
             };
             await getDataFromApiHandler(payload)
                 .then((res) => {
@@ -98,6 +98,7 @@ const Admin = (props) => {
                     value="Login as Admin"
                     className={styles["submit-btn"]}
                 />
+                <p>Contact: <a href="mailto:sambasivareddyc4@gmail.com">sambasivareddyc4@gmail.com</a> to create an admin</p>
             </form>
             {response && (
                 <Toast typeOfToast="success" message="Successfully Loggedin" />

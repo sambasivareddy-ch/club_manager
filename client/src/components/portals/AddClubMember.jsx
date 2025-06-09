@@ -18,7 +18,7 @@ const AddClubMember = (props) => {
 
         if (username && email && userType) {
             await postDataToApiHandler({
-                url: "http://localhost:5000/add-user",
+                url: `${process.env.REACT_APP_SERVER_URL}/add-user`,
                 data: {
                     club: props.club_id,
                     username,

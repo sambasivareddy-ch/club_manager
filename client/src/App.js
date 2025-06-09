@@ -53,7 +53,7 @@ const App = () => {
     const getClubsInfoHandler = async () => {
       setIsLoading(true);
       await getDataFromApiHandler({
-        url: "http://localhost:5000/get-clubs",
+        url: `${process.env.REACT_APP_SERVER_URL}/get-clubs`,
       })
         .then((res) => setClubsData(res.clubs))
         .catch((err) => setHasError(true));
@@ -62,7 +62,7 @@ const App = () => {
     const getEventsInfoHandler = async () => {
       setIsLoading(true);
       await getDataFromApiHandler({
-        url: "http://localhost:5000/get-events",
+        url: `${process.env.REACT_APP_SERVER_URL}/get-events`,
       })
         .then((res) => setEventsData(res.events))
         .catch((err) => setHasError(true));

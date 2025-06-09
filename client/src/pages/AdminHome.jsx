@@ -21,7 +21,7 @@ const AdminHome = (props) => {
 
     useEffect(() => {
         const getClubHandler = async () => {
-            getDataFromApiHandler({ url: "http://localhost:5000/get-clubs" })
+            getDataFromApiHandler({ url: `${process.env.REACT_APP_SERVER_URL}/get-clubs` })
                 .then((res) => setClubsData(res.clubs))
                 .catch((err) => console.log(err));
         };

@@ -16,7 +16,7 @@ const DeleteClubPortal = (props) => {
         e.preventDefault();
         if (selectedClubID) {
             await deleteDataFromApiHandler({
-                url: "http://localhost:5000/delete-club",
+                url: `${process.env.REACT_APP_SERVER_URL}/delete-club`,
                 data: {
                     clubId: selectedClubID,
                 },

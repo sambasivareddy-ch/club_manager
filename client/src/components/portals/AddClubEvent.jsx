@@ -33,7 +33,7 @@ const AddClubEvent = (props) => {
             !alreadyExistEventDates.includes(new Date(eventDate).toDateString())
         ) {
             await postDataToApiHandler({
-                url: "http://localhost:5000/add-event",
+                url: `${process.env.REACT_APP_SERVER_URL}/add-event`,
                 data: {
                     club_id: props.club_id,
                     eventName,

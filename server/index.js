@@ -28,12 +28,6 @@ connect(process.env.MONGO_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-connection.once("connected", () => {
-    console.log("DB Connected");
-});
-connection.on("error", () => {
-    console.log("Error Occurred");
-});
 
 app.get("/", (req, res) => {
     res.status(200).send("Hello World!!");
@@ -52,8 +46,13 @@ app.use("/get-info", getClubInfoRoute);
 app.use("/get-events", getEventsRoute);
 
 const PORT = 5000 || process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Listening at Port: ${PORT}`);
+connection.once("connected", () => {
+    app.listen(PORT, (req, res) => {
+        console.log('Connected to Server');
+    })
+});
+connection.on("error", () => {
+    console.log("Error Occurred while connection to DB");
 });
 
 export default app;

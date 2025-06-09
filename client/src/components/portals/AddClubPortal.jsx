@@ -16,7 +16,7 @@ const AddClubPortal = (props) => {
 
         if (enteredClubName && enteredClubType && enteredNoOfMembers) {
             await postDataToApiHandler({
-                url: "http://localhost:5000/create-club",
+                url: `${process.env.REACT_APP_SERVER_URL}/create-club`,
                 data: {
                     adminId: localStorage.getItem("admin_id"),
                     clubName: enteredClubName,
