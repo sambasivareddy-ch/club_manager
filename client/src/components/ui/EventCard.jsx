@@ -4,6 +4,7 @@ import useApi from "../../hooks/useApi";
 import styles from "./ui.module.css";
 
 const EventCard = (props) => {
+    const { getDataFromApiHandler } = useApi();
     const [clubName, setClubName] = useState("");
 
     useEffect(() => {
