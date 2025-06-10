@@ -59,7 +59,7 @@ const Home = (props) => {
                   key={Math.random()}
                   eventDate={new Date(evnt.eventDate).toDateString()}
                   eventName={evnt.eventName}
-                  hostClub={evnt.club.clubName}
+                  hostClub={evnt.club}
                   registerLink={evnt.registerLink}
                   eventPageLink={evnt.eventPageLink}
                 />
