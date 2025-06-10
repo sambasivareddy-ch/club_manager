@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    await clubModel.findById(id)
+    await clubModel.findOne({ _id: Object(id) })
     .then(club => {
         res.json({
             status: 201,
