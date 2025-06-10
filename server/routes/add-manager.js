@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     let isManagerAdded = false;
 
     const chars =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
     let password = "";
     for (let i = 0; i < 10; i++) {
