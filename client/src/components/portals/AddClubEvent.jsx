@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import useApi from "../../hooks/useApi";
 import styles from "./portal.module.css";
+import Toast from "./Toast";
 
 const AddClubEvent = (props) => {
     const eventNameRef = useRef("");
@@ -11,6 +12,29 @@ const AddClubEvent = (props) => {
     const eventRegisterRef = useRef("");
     const eventPageRef = useRef("");
     const { postDataToApiHandler } = useApi();
+
+    const [response, setResponse] = useState(false);
+    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [validateError, setValidateError] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setError(false);
+        }, 5000);
+    }, [error]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setResponse(false);
+        }, 5000);
+    }, [response]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setValidateError(false);
+        }, 5000);
+    }, [validateError]);
 
     const alreadyExistEventDates = useSelector(
         (state) => state.events.eventDates
@@ -30,6 +54,7 @@ const AddClubEvent = (props) => {
             eventDate &&
             registerLink
         ) {
+            setIsLoading(true);
             await postDataToApiHandler({
                 url: `${process.env.REACT_APP_SERVER_URL}/add-event`,
                 data: {
@@ -41,8 +66,15 @@ const AddClubEvent = (props) => {
                     eventPageLink,
                 },
             })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+                .then((res) => {
+                    setIsLoading(false);
+                    setResponse(true);
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    setError(true);
+                    console.error("Error adding event:", err);
+                });
         } else if (
             alreadyExistEventDates.includes(new Date(eventDate).toDateString())
         ) {
@@ -109,6 +141,17 @@ const AddClubEvent = (props) => {
                     Close
                 </button>
             </form>
+            {response && (
+                <Toast typeOfToast="success" message="Successfully Added an event." />
+            )}
+            {error && <Toast typeOfToast="error" message="Adding Event Failed" />}
+            {isLoading && <Toast typeOfToast="loading" message="Updating..." />}
+            {validateError && (
+                <Toast
+                    typeOfToast="error"
+                    message="Please enter all fields & valid data.."
+                />
+            )}
         </div>
     );
 };

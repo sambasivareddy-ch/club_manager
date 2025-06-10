@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import useApi from "../../hooks/useApi";
 
 import styles from "./portal.module.css";
+import Toast from "./Toast";
 
 const AddClubMember = (props) => {
     // username, isAdmin, isManager, club, userType, email
@@ -10,6 +11,29 @@ const AddClubMember = (props) => {
     const memberRole = useRef('');
     const { postDataToApiHandler } = useApi();
 
+    const [response, setResponse] = useState(false);
+    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [validateError, setValidateError] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setError(false);
+        }, 5000);
+    }, [error]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setResponse(false);
+        }, 5000);
+    }, [response]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setValidateError(false);
+        }, 5000);
+    }, [validateError]);
+
     const formSubmitHandler = async (e) => {
         e.preventDefault()
         const username = memberName.current.value.trim();
@@ -17,6 +41,7 @@ const AddClubMember = (props) => {
         const userType = memberRole.current.value.trim();
 
         if (username && email && userType) {
+            setIsLoading(true);
             await postDataToApiHandler({
                 url: `${process.env.REACT_APP_SERVER_URL}/add-user`,
                 data: {
@@ -29,8 +54,16 @@ const AddClubMember = (props) => {
                     password: ''
                 },
             })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+                .then((res) => {
+                    setIsLoading(false);
+                    setResponse(true);
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    setError(true);
+                });
+        } else {
+            setValidateError(true);
         }
 
         memberName.current.value = '';
@@ -75,6 +108,17 @@ const AddClubMember = (props) => {
                     Close
                 </button>
             </form>
+            {response && (
+                <Toast typeOfToast="success" message="Successfully Added the Member." />
+            )}
+            {error && <Toast typeOfToast="error" message="Adding Member Failed" />}
+            {isLoading && <Toast typeOfToast="loading" message="Updating..." />}
+            {validateError && (
+                <Toast
+                    typeOfToast="error"
+                    message="Please enter all fields & valid data.."
+                />
+            )}
         </div>
     );
 };

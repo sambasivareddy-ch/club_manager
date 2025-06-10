@@ -1,12 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styles from "./portal.module.css";
 import useApi from "../../hooks/useApi";
+import Toast from "./Toast";
 
 const AddClubPortal = (props) => {
     const { postDataToApiHandler } = useApi();
     const clubName = useRef("");
     const clubType = useRef("");
     const noOfMembers = useRef(0);
+
+    const [response, setResponse] = useState(false);
+    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [validateError, setValidateError] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setError(false);
+        }, 5000);
+    }, [error]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setResponse(false);
+        }, 5000);
+    }, [response]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setValidateError(false);
+        }, 5000);
+    }, [validateError]);
 
     const formSubmitHandler = async (e) => {
         e.preventDefault();
@@ -15,6 +39,7 @@ const AddClubPortal = (props) => {
         const enteredNoOfMembers = noOfMembers.current.value;
 
         if (enteredClubName && enteredClubType && enteredNoOfMembers) {
+            setIsLoading(true);
             await postDataToApiHandler({
                 url: `${process.env.REACT_APP_SERVER_URL}/create-club`,
                 data: {
@@ -24,8 +49,16 @@ const AddClubPortal = (props) => {
                     clubType: enteredClubType,
                 },
             })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+                .then((res) => {
+                    setIsLoading(false);
+                    setResponse(true);
+                })
+                .catch((err) => {
+                    setError(true);
+                    setIsLoading(false);
+                });
+        } else {
+            setValidateError(true);
         }
 
         clubName.current.value = '';
@@ -72,6 +105,17 @@ const AddClubPortal = (props) => {
                     Close
                 </button>
             </form>
+            {response && (
+                <Toast typeOfToast="success" message="Successfully Added a club." />
+            )}
+            {error && <Toast typeOfToast="error" message="Adding Club Failed" />}
+            {isLoading && <Toast typeOfToast="loading" message="Adding..." />}
+            {validateError && (
+                <Toast
+                    typeOfToast="error"
+                    message="Please enter all fields & valid data.."
+                />
+            )}
         </div>
     );
 };

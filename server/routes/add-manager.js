@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
                       </html>
                     `, // html body
                 })
-                .catch((err) => console.log("An Error Occurred"));
+                .catch((err) => console.log("An Error Occurred", err));
         }
         
         if (manager) {

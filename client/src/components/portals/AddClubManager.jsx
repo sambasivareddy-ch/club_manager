@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useApi from "../../hooks/useApi";
 import styles from "./portal.module.css";
+import Toast from "./Toast";
 
 const AddClubManager = (props) => {
     const clubs_info = [];
@@ -8,6 +9,29 @@ const AddClubManager = (props) => {
     const managerName = useRef("");
     const managerEmail = useRef("");
     const { postDataToApiHandler } = useApi();
+
+    const [response, setResponse] = useState(false);
+    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [validateError, setValidateError] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setError(false);
+        }, 5000);
+    }, [error]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setResponse(false);
+        }, 5000);
+    }, [response]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setValidateError(false);
+        }, 5000);
+    }, [validateError]);
 
     props.clubs.map((club) =>
         clubs_info.push({ id: club._id, clubName: club.clubName })
@@ -19,6 +43,7 @@ const AddClubManager = (props) => {
         const enteredEmail = managerEmail.current.value.trim().toLowerCase();
 
         if (enteredEmail && enteredName && selectedClubID !== "") {
+            setIsLoading(true);
             await postDataToApiHandler({
                 url: `${process.env.REACT_APP_SERVER_URL}/add-manager`,
                 data: {
@@ -27,8 +52,16 @@ const AddClubManager = (props) => {
                     managerName: enteredName,
                 },
             })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+                .then((res) => {
+                    setIsLoading(false);
+                    setResponse(true);
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    setError(true);
+                });
+        } else {
+            setValidateError(true);
         }
         managerEmail.current.value = "";
         managerName.current.value = "";
@@ -84,6 +117,17 @@ const AddClubManager = (props) => {
                     Close
                 </button>
             </form>
+            {response && (
+                <Toast typeOfToast="success" message="Successfully Added the Manager." />
+            )}
+            {error && <Toast typeOfToast="error" message="Adding Manager Failed" />}
+            {isLoading && <Toast typeOfToast="loading" message="Updating..." />}
+            {validateError && (
+                <Toast
+                    typeOfToast="error"
+                    message="Please enter all fields & valid data.."
+                />
+            )}
         </div>
     );
 };
