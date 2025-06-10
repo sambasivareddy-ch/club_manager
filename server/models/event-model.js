@@ -4,11 +4,11 @@ import { string_type, date_type, club_type, buffer_type } from "./type-schemas.j
 
 const eventSchema = new Schema({
     eventName: string_type,
-    aboutEvent: string_type,
+    aboutEvent: String,
     eventDate: date_type,
     club: club_type,
     registerLink: string_type,
-    eventPageLink: string_type,
+    eventPageLink: String,
 }, {
     collection: "events"
 })
